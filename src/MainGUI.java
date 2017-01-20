@@ -16,7 +16,7 @@ import javax.swing.KeyStroke;
 import java.awt.event.InputEvent;
 
 public class MainGUI extends JFrame implements ActionListener{
-	private static String aboutUs = "We are Team Apache:\n Brandon Gibbons --Gibbo\n Jorie Fernandez --J \n Griffin Toyoda\n "
+	private static String aboutUs = "We are Team Apache:\n Brandon Gibbons --Gibbo\n Jorie Fernandez --J \n Griffin Toyoda --Griff\n "
 			+ "Zeeshan Aziz Karim --**Needs nickname**\n Max Kullish --**Needs Nickname**";
 	
 	public MainGUI() {
