@@ -1,12 +1,15 @@
 package testing;
 
-import static org.junit.Assert.*;
-import UI.MainGUI;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import UI.MainGUI;
+
 public class MainGUITest {
 	MainGUI myGUI;
+	
 	@Before
 	public void setUp() throws Exception {
 		myGUI = new MainGUI();
@@ -14,7 +17,7 @@ public class MainGUITest {
 
 	@Test
 	public void test() {
-		assert(myGUI.isEnabled() == true);
+		assertTrue(myGUI.isActive());
 	}
 
 }
