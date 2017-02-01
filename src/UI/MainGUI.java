@@ -2,7 +2,8 @@ package UI;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,8 +13,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainGUI extends Application {
@@ -31,8 +33,10 @@ public class MainGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Apache Application");
-		Scene mainScene = new Scene(new VBox(), 400, 350);
-		mainScene.setFill(Color.AZURE);
+		
+		BorderPane mainScene = new BorderPane();
+		HBox menuManager = new HBox();
+		VBox loginManager = new VBox();
 		
 		MenuBar menuBar = new MenuBar();
 		Menu mainMenu = new Menu("Menu");
@@ -41,31 +45,35 @@ public class MainGUI extends Application {
 		TextArea passwordField = new TextArea("Enter your password");
 		Button loginButton = new Button("Login");
 		
-		loginButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				
-			}
+		loginButton.setOnAction((ActionEvent event) -> {
+			System.out.println("This feature has not been implemented yet...");
 		});
 		
-		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
+		aboutMenu.setOnAction((ActionEvent event) -> {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("About Team Apache");
 			alert.setHeaderText(null);
 			alert.setContentText(aboutUs);
 			alert.showAndWait();
-			}
 		});
 		
 		aboutMenu.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
 		mainMenu.getItems().add(aboutMenu);
 		menuBar.getMenus().add(mainMenu);
         
-        ((VBox)mainScene.getRoot()).getChildren().add(menuBar);
-        ((VBox)mainScene.getRoot()).getChildren().addAll(userName, passwordField, loginButton);
-        primaryStage.setScene(mainScene);
+		userName.setMaxSize(250.00, 50.00);
+		passwordField.setMaxSize(250.00, 50.00);
+		menuManager.getChildren().add(menuBar);
+		menuManager.setPadding(new Insets(10, 20, 10, 20));
+        mainScene.setTop(menuManager);
+        
+        loginManager.getChildren().addAll(userName, passwordField, loginButton);
+        loginManager.setPadding(new Insets(10, 30, 10, 30));
+        loginManager.setAlignment(Pos.CENTER);
+        mainScene.setCenter(loginManager);
+
+        Scene scene = new Scene(mainScene);
+        primaryStage.setScene(scene);
         primaryStage.show();
         
         activeFlag = true;
@@ -73,5 +81,5 @@ public class MainGUI extends Application {
 	
 	public boolean isActive() {
 		return activeFlag;
-	}
+	}	
 }
