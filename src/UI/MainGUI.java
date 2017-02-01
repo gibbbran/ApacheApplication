@@ -2,7 +2,6 @@ package UI;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -11,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -19,6 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainGUI extends Application {
+	
+	BorderPane mainScene = new BorderPane();
+	HBox menuManager = new HBox();
+	VBox loginManager = new VBox();
 	
 	private static String aboutUs = "We are Team Apache:\n Brandon Gibbons --Gibbo\n Jorie Fernandez --J \n Griffin Toyoda --Griff\n "
 			+ "Zeeshan Aziz Karim --**Needs nickname**\n Max Kullish --**Needs Nickname**";
@@ -34,20 +37,26 @@ public class MainGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Apache Application");
 		
-		BorderPane mainScene = new BorderPane();
-		HBox menuManager = new HBox();
-		VBox loginManager = new VBox();
+		createMenu(primaryStage);
+		createLogin();
+		
+        mainScene.setCenter(loginManager);
+
+        Scene scene = new Scene(mainScene);
+        primaryStage.setScene(scene);
+        primaryStage.setMinHeight(350);
+        primaryStage.setMinWidth(325);
+        primaryStage.show();
+        
+        activeFlag = true;
+	}
+	
+	private void createMenu(Stage _stage) {
 		
 		MenuBar menuBar = new MenuBar();
 		Menu mainMenu = new Menu("Menu");
 		MenuItem aboutMenu = new MenuItem("About...");
-		TextArea userName = new TextArea("Enter your user name");
-		TextArea passwordField = new TextArea("Enter your password");
-		Button loginButton = new Button("Login");
 		
-		loginButton.setOnAction((ActionEvent event) -> {
-			System.out.println("This feature has not been implemented yet...");
-		});
 		
 		aboutMenu.setOnAction((ActionEvent event) -> {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -60,23 +69,31 @@ public class MainGUI extends Application {
 		aboutMenu.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
 		mainMenu.getItems().add(aboutMenu);
 		menuBar.getMenus().add(mainMenu);
-        
-		userName.setMaxSize(250.00, 50.00);
-		passwordField.setMaxSize(250.00, 50.00);
+
+		menuBar.prefWidthProperty().bind(_stage.widthProperty());
+		
 		menuManager.getChildren().add(menuBar);
-		menuManager.setPadding(new Insets(10, 20, 10, 20));
         mainScene.setTop(menuManager);
+	}
+	
+	private void createLogin() {
+		
+		TextField userName = new TextField("Enter your user name");
+		TextField passwordField = new TextField("Enter your password");
+		Button loginButton = new Button("Login");
+		
+		loginButton.setOnAction((ActionEvent event) -> {
+			System.out.println("This feature has not been implemented yet...");
+		});
+        
+		userName.setPrefHeight(20);
+		userName.setMaxWidth(200);
+		passwordField.setPrefHeight(20);
+		passwordField.setMaxWidth(200);
         
         loginManager.getChildren().addAll(userName, passwordField, loginButton);
-        loginManager.setPadding(new Insets(10, 30, 10, 30));
+        loginManager.setSpacing(15);
         loginManager.setAlignment(Pos.CENTER);
-        mainScene.setCenter(loginManager);
-
-        Scene scene = new Scene(mainScene);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        
-        activeFlag = true;
 	}
 	
 	public boolean isActive() {
